@@ -1,4 +1,4 @@
-# Use the official node image (already includes yarn)
+# Use the official node image
 FROM node:22-alpine
 
 # Set the working directory
@@ -13,11 +13,13 @@ RUN yarn install
 # Copy the rest of the application
 COPY . .
 
-# Build the app
+# Set environment variable for port
+ENV PORT=8080
+
+# Build the app for production
 RUN yarn build
 
-# Expose the application port
+# Expose the app on port 8080 (Cloud Run's expected port)
 EXPOSE 8080
-
-# Start the app
-CMD ["yarn", "start"]
+# Ensure the React app runs on port 8080
+CMD ["sh", "-c", "PORT=8080 yarn start"]
