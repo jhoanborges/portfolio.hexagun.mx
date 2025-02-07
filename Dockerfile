@@ -1,13 +1,10 @@
-# Use the official node image
+# Use the official node image (already includes yarn)
 FROM node:22-alpine
-
-# Install Yarn globally
-RUN npm install -g yarn
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock
+# Copy package.json, yarn.lock, and package.json files
 COPY package*.json yarn.lock ./
 
 # Install dependencies with Yarn
