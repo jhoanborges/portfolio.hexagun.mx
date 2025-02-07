@@ -1,26 +1,26 @@
-# Use an official node image as the base image
+# Use the official node image
 FROM node:22-alpine
+
+# Install Yarn globally
+RUN npm install -g yarn
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json and yarn.lock
+COPY package*.json yarn.lock ./
 
-# Install dependencies with legacy peer deps flag
-RUN npm install --legacy-peer-deps
+# Install dependencies with Yarn
+RUN yarn install
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-# Build the React app
-RUN npm run build
+# Build the app
+RUN yarn build
 
-# Use an official nginx image to serve the built app
-FROM nginx:alpine
+# Expose the application port
+EXPOSE 3000
 
-# Copy the built app from the previous stage
-COPY --from=0 /app/dist /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
+# Start the app
+CMD ["yarn", "start"]
