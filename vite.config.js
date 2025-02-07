@@ -1,11 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: process.env.PORT || 3000,  // Cloud Run will pass the PORT environment variable
-    host: true,                      // Allow the server to be accessed externally
-  }
-})
+    port: process.env.PORT || 3000,  // Use PORT from environment or default to 3000
+    host: true,                      // Allow external access
+  },
+  preview: {
+    port: process.env.PORT || 3000,  // Use PORT for preview as well
+    host: true,
+  },
+});

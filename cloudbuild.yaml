@@ -1,22 +1,21 @@
 steps:
-  # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/hexagun-mx/portfolio', '.']
 
-  # Step 2: Push the Docker image to Google Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/hexagun-mx/portfolio']
 
-  # Step 3: Deploy the image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args:
       - 'run'
       - 'deploy'
-      - 'portfolio'  # Name of the Cloud Run service
-      - '--image=gcr.io/hexagun-mx/portfolio'  # Image to deploy
-      - '--region=us-central1'  # Region for deployment
+      - 'portfolio'
+      - '--image=gcr.io/hexagun-mx/portfolio'
+      - '--region=us-central1'
       - '--platform=managed'
-      - '--allow-unauthenticated'  # Allow public access (optional)
+      - '--allow-unauthenticated'
+      - '--timeout=300'  # Increase timeout to 300 seconds (5 minutes)
+      - '--set-env-vars=PORT=3000'  # Ensure PORT is set
 
 # Optional: Specify logging options
 options:
