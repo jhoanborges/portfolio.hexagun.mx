@@ -14,12 +14,12 @@ RUN yarn install
 COPY . .
 
 # Set environment variable for port
-ENV PORT=8080
+ENV PORT=3000
 
 # Build the app for production
 RUN yarn build
 
 # Expose the app on port 8080 (Cloud Run's expected port)
-EXPOSE 8080
+EXPOSE 3000
 # Ensure the React app runs on port 8080
-CMD ["sh", "-c", "PORT=8080 yarn start"]
+CMD ["sh", "-c", "PORT=3000 yarn start"]
