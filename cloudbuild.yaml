@@ -1,12 +1,10 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/hexagun-mx/portfolio', '.']
-    env:
-      - 'NPM_FLAGS=--legacy-peer-deps'
   - name: 'node:22-alpine'
     args:
       - 'sh'
       - '-c'
-      - 'npm install $NPM_FLAGS'
+      - 'npm install --legacy-peer-deps'
 options:
   logging: CLOUD_LOGGING_ONLY
