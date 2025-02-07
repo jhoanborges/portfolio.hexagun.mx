@@ -1,14 +1,14 @@
-# Use the official node image
+# Use the official Node.js Alpine image
 FROM node:22-alpine
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json, yarn.lock files
+# Copy package.json and yarn.lock files
 COPY package*.json yarn.lock ./
 
 # Install dependencies with Yarn
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Copy the rest of the application
 COPY . .
@@ -19,8 +19,8 @@ ENV PORT=3000
 # Build the app for production
 RUN yarn build
 
-# Expose the app on port 3000 (Cloud Run's expected port)
-EXPOSE 3000
+# Expose the app on the port specified by the $PORT environment variable
+EXPOSE $PORT
 
 # Start the React app, it will automatically listen on the $PORT environment variable
 CMD ["yarn", "start"]
