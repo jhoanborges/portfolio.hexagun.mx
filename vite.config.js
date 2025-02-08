@@ -10,6 +10,7 @@ export default defineConfig({
   preview: {
     port: process.env.PORT || 3000,  // Use PORT for preview as well
     host: true,
+    // allowedHosts: 'all',  // Allow all hosts
     allowedHosts: [
       'portfolio-hexagun-mx-962047428214.us-central1.run.app',  // Allow the Cloud Run host
     ],
